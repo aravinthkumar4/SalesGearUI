@@ -10,8 +10,10 @@ export default function ComparisionContent() {
   const [indexOfDiv, setIndexOfDiv] = useState(0);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    if (window.innerWidth >= 767) {
+    typeof indexOfDiv === "number" &&
+      window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);}
   }, [indexOfDiv]);
 
   const menus = [
@@ -145,11 +147,11 @@ export default function ComparisionContent() {
   const handleClick = (id) => {
     setActiveTab(id);
     scrollToTarget();
-    const indexOfDiv = menus.findIndex((menu)=>menu.id === id)
-    setIndexOfDiv(indexOfDiv)
+    const indexOfDiv = menus.findIndex((menu) => menu.id === id);
+    setIndexOfDiv(indexOfDiv);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     activeTab && scrollToTarget();
   }, [activeTab]);
 
