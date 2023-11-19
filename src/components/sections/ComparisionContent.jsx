@@ -153,7 +153,7 @@ export default function ComparisionContent() {
         window.addEventListener("scroll", handleScroll);
       return () => window.removeEventListener("scroll", handleScroll);
     }
-  }, [indexOfDiv]);
+  });
 
   return (
     <section className="max-w-screen-xl mx-auto relative">
