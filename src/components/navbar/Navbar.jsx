@@ -48,38 +48,10 @@ export default function Navbar() {
           } w-full md:flex md:w-auto`}
         >
           <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium md:space-x-8 md:flex-row md:mt-0">
-            <li>
-              <a
-                href="#"
-                className="under-line"
-              >
-                Platform
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="under-line "
-              >
-                Pricing
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="under-line "
-              >
-                About
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="under-line "
-              >
-                Resources
-              </a>
-            </li>
+            <li className="under-line cursor-pointer">Platform</li>
+            <li className="under-line cursor-pointer">Pricing</li>
+            <li className="under-line cursor-pointer">About</li>
+            <li className="under-line cursor-pointer">Resources</li>
             <button className="p-[10px] btn-secondary block md:hidden">
               Log In
             </button>
