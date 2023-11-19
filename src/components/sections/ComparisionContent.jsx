@@ -127,7 +127,7 @@ export default function ComparisionContent() {
           </div>
         </div>
         <div className="w-full md:w-[75%]">
-          <div className="pl-2 md:pl-6" id="overview" ref={activeTab=='overview'?targetRef:null}>
+          <div className="pl-2 md:pl-6" id="overview" ref={activeTab==='overview'?targetRef:null}>
             <div>
               <h3 className="text-[#49417b] font-normal mb-4">
                 An Overview of Salesloft vs Outreach
@@ -139,7 +139,7 @@ export default function ComparisionContent() {
               </p>
             </div>
 
-            <div className="my-6" id="commonFeatures" ref={activeTab=='commonFeatures'?targetRef:null}>
+            <div className="my-6" id="commonFeatures" ref={activeTab==='commonFeatures'?targetRef:null}>
               <h3 className="text-[#49417b] font-normal mb-4">
                 Common Features
               </h3>
@@ -156,7 +156,7 @@ export default function ComparisionContent() {
                 </div>
               ))}
             </div>
-            <div className="my-6" id="pricing"  ref={activeTab=='pricing'?targetRef:null}>
+            <div className="my-6" id="pricing"  ref={activeTab==='pricing'?targetRef:null}>
               <h3 className="text-[#49417b] font-normal mb-4">Pricing</h3>
               {pricing?.map((i, idx) => (
                 <div className="flex gap-2 items-start mb-2">
@@ -171,7 +171,7 @@ export default function ComparisionContent() {
                 </div>
               ))}
             </div>
-            <div className="my-6 w-full" id="pros" ref={activeTab=='pros'?targetRef:null}>
+            <div className="my-6 w-full" id="pros" ref={activeTab==='pros'?targetRef:null}>
               <h3 className="text-[#49417b] font-normal mb-4">
                 Salesloft vs Outreach Props
               </h3>
@@ -209,7 +209,7 @@ export default function ComparisionContent() {
                 </tbody>
               </table>
             </div>
-            <div className="my-6" id="cons" ref={activeTab=='cons'?targetRef:null}>
+            <div className="my-6" id="cons" ref={activeTab==='cons'?targetRef:null}>
               <h3 className="text-[#49417b] font-normal mb-4">
                 Salesloft vs Outreach Cons
               </h3>
