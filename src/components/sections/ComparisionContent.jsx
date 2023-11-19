@@ -9,12 +9,7 @@ export default function ComparisionContent() {
   const [activeTab, setActiveTab] = React.useState("");
   const [indexOfDiv, setIndexOfDiv] = useState(0);
 
-  useEffect(() => {
-    if (window.innerWidth >= 767) {
-    typeof indexOfDiv === "number" &&
-      window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);}
-  }, [indexOfDiv]);
+ 
 
   const menus = [
     {
@@ -154,6 +149,12 @@ export default function ComparisionContent() {
   useEffect(() => {
     activeTab && scrollToTarget();
   }, [activeTab]);
+  useEffect(() => {
+    if (window.innerWidth >= 767) {
+    typeof indexOfDiv === "number" &&
+      window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);}
+  }, [indexOfDiv,handleScroll]);
 
   return (
     <section className="max-w-screen-xl mx-auto relative">
