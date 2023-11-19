@@ -1,15 +1,22 @@
-import React,{useRef} from "react";
+import React, { useRef, useEffect, useState } from "react";
 import ItemCard from "../common/ItemCard";
 
 export default function ComparisionContent() {
   const targetRef = useRef();
+  const containerRef = useRef();
+  const lastScrollTop = useRef(0);
 
-  const [activeTab, setActiveTab] = React.useState("overview");
+  const [activeTab, setActiveTab] = React.useState("");
+  const [indexOfDiv, setIndexOfDiv] = useState(0);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [indexOfDiv]);
 
   const menus = [
     {
       title: "Overview",
-      isActive: true,
       id: "overview",
     },
     {
@@ -94,21 +101,56 @@ export default function ComparisionContent() {
       rcontent: "Pricing starts from $1200 per user annually",
     },
   ];
+
   const scrollToTarget = () => {
     if (targetRef.current) {
       const offset = targetRef.current.getBoundingClientRect().top - 100;
-      window.scrollBy({ top: offset, left: 0, behavior: 'smooth' });
+      window.scrollBy({ top: offset, left: 0, behavior: "smooth" });
     }
   };
-  const handleClick = (id) => {
-    setActiveTab(id);
-    scrollToTarget()
+
+  const handleScroll = () => {
+    const scrollPos = window.scrollY;
+
+    const containerHeight = containerRef.current.getBoundingClientRect().top;
+
+    if (scrollPos - containerHeight <= 0 && targetRef.current === undefined) {
+      setActiveTab(menus[0].id);
+    }
+
+    if (targetRef.current) {
+      const targetDivHeight =
+        targetRef.current.getBoundingClientRect().bottom - 100;
+      const targetTotoalHeight = targetRef.current.clientHeight;
+
+      if (scrollPos > lastScrollTop.current) {
+        if (targetDivHeight <= 0 && menus.length - 2 >= indexOfDiv) {
+          setActiveTab(menus[indexOfDiv + 1].id);
+          setIndexOfDiv((preState) => preState + 1);
+        }
+      } else if (scrollPos < lastScrollTop.current) {
+        if (
+          targetDivHeight > targetTotoalHeight &&
+          indexOfDiv !== 0 &&
+          menus.length >= indexOfDiv
+        ) {
+          setActiveTab(menus[indexOfDiv - 1].id);
+          setIndexOfDiv((preState) => preState - 1);
+        }
+      }
+    }
+    lastScrollTop.current = scrollPos;
   };
 
- 
+  const handleClick = (id) => {
+    setActiveTab(id);
+    scrollToTarget();
+    const indexOfDiv = menus.findIndex((menu)=>menu.id === id)
+    setIndexOfDiv(indexOfDiv)
+  };
 
   React.useEffect(() => {
-    activeTab&&scrollToTarget()
+    activeTab && scrollToTarget();
   }, [activeTab]);
 
   return (
@@ -127,8 +169,11 @@ export default function ComparisionContent() {
           </div>
         </div>
         <div className="w-full md:w-[75%]">
-          <div className="pl-2 md:pl-6" id="overview" ref={activeTab==='overview'?targetRef:null}>
-            <div>
+          <div className="pl-2 md:pl-6" ref={containerRef}>
+            <div
+              id="overview"
+              ref={activeTab === "overview" ? targetRef : null}
+            >
               <h3 className="text-[#49417b] font-normal mb-4">
                 An Overview of Salesloft vs Outreach
               </h3>
@@ -139,39 +184,83 @@ export default function ComparisionContent() {
               </p>
             </div>
 
-            <div className="my-6" id="commonFeatures" ref={activeTab==='commonFeatures'?targetRef:null}>
+            <div
+              className="my-6"
+              id="commonFeatures"
+              ref={activeTab === "commonFeatures" ? targetRef : null}
+            >
               <h3 className="text-[#49417b] font-normal mb-4">
                 Common Features
               </h3>
               {Features?.map((i, idx) => (
                 <div className="flex gap-2 items-start mb-2" key={idx}>
-                  <div className="pt-1 w-[30px] h-[30px]">
-                    <img
-                      src="/assets/checkbox.png"
-                      alt=""
-                      loading="lazy"
-                    />
+                  <div className="pt-1">
+                    <svg
+                      width="18"
+                      height="18"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect
+                        width="18"
+                        height="18"
+                        rx="2"
+                        fill="#c4caf6"
+                        stroke="#7485f8"
+                        stroke-width="1"
+                      />
+
+                      <path
+                        d="M4 9 L8 13 L15 6"
+                        stroke="#7485f8"
+                        stroke-width="2"
+                        fill="none"
+                      />
+                    </svg>
                   </div>
                   <p>{i?.content}</p>
                 </div>
               ))}
             </div>
-            <div className="my-6" id="pricing"  ref={activeTab==='pricing'?targetRef:null}>
+            <div
+              className="my-6"
+              id="pricing"
+              ref={activeTab === "pricing" ? targetRef : null}
+            >
               <h3 className="text-[#49417b] font-normal mb-4">Pricing</h3>
               {pricing?.map((i, idx) => (
                 <div className="flex gap-2 items-start mb-2">
-                  <div className="pt-1 w-[30px] h-[30px]">
-                    <img
-                      src="/assets/checkbox.png"
-                      alt=""
-                      loading="lazy"
-                    />
-                  </div>{" "}
+                  <div className="pt-1">
+                    <svg
+                      width="18"
+                      height="18"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect
+                        width="18"
+                        height="18"
+                        rx="2"
+                        fill="#c4caf6"
+                        stroke="#7485f8"
+                        stroke-width="1"
+                      />
+
+                      <path
+                        d="M4 9 L8 13 L15 6"
+                        stroke="#7485f8"
+                        stroke-width="2"
+                        fill="none"
+                      />
+                    </svg>
+                  </div>
                   <p>{i?.content}</p>
                 </div>
               ))}
             </div>
-            <div className="my-6 w-full" id="pros" ref={activeTab==='pros'?targetRef:null}>
+            <div
+              className="my-6 w-full"
+              id="pros"
+              ref={activeTab === "pros" ? targetRef : null}
+            >
               <h3 className="text-[#49417b] font-normal mb-4">
                 Salesloft vs Outreach Props
               </h3>
@@ -209,7 +298,11 @@ export default function ComparisionContent() {
                 </tbody>
               </table>
             </div>
-            <div className="my-6" id="cons" ref={activeTab==='cons'?targetRef:null}>
+            <div
+              className="my-6"
+              id="cons"
+              ref={activeTab === "cons" ? targetRef : null}
+            >
               <h3 className="text-[#49417b] font-normal mb-4">
                 Salesloft vs Outreach Cons
               </h3>
