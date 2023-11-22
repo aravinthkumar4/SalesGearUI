@@ -1,11 +1,13 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import ItemCard from "../common/ItemCard";
 
 export default function ComparisionContent() {
   const targetRef = useRef();
   const containerRef = useRef();
+  const lastScrollTop = useRef(0);
 
   const [activeTab, setActiveTab] = React.useState("");
+  const [indexOfDiv, setIndexOfDiv] = useState(0);
 
   const menus = [
     {
@@ -102,16 +104,56 @@ export default function ComparisionContent() {
     }
   };
 
+  const handleScroll = () => {
+    const scrollPos = window.scrollY;
+
+    const containerHeight = containerRef.current.getBoundingClientRect().top;
+
+    if (scrollPos - containerHeight <= 0 && targetRef.current === undefined) {
+      setActiveTab(menus[0].id);
+    }
+
+    if (targetRef.current) {
+      const targetDivHeight =
+        targetRef.current.getBoundingClientRect().bottom - 100;
+      const targetTotoalHeight = targetRef.current.clientHeight;
+
+      if (scrollPos > lastScrollTop.current) {
+        if (targetDivHeight <= 0 && menus.length - 2 >= indexOfDiv) {
+          setActiveTab(menus[indexOfDiv + 1].id);
+          setIndexOfDiv((preState) => preState + 1);
+        }
+      } else if (scrollPos < lastScrollTop.current) {
+        if (
+          targetDivHeight > targetTotoalHeight &&
+          indexOfDiv !== 0 &&
+          menus.length >= indexOfDiv
+        ) {
+          setActiveTab(menus[indexOfDiv - 1].id);
+          setIndexOfDiv((preState) => preState - 1);
+        }
+      }
+    }
+    lastScrollTop.current = scrollPos;
+  };
 
   const handleClick = (id) => {
     setActiveTab(id);
     scrollToTarget();
+    const indexOfDiv = menus.findIndex((menu) => menu.id === id);
+    setIndexOfDiv(indexOfDiv);
   };
 
   useEffect(() => {
     activeTab && scrollToTarget();
   }, [activeTab]);
- 
+  useEffect(() => {
+    if (window.innerWidth >= 769) {
+      typeof indexOfDiv === "number" &&
+        window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
+  });
 
   return (
     <section className="max-w-screen-xl mx-auto relative pb-2 md:pb-10">

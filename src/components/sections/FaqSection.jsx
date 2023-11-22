@@ -1,5 +1,5 @@
 import React from "react";
-const Card =React.lazy(()=>import( "../common/Card"));
+const Card = React.lazy(() => import("../common/Card"));
 
 export default function FaqSection() {
   const one = [
@@ -61,49 +61,45 @@ export default function FaqSection() {
   ];
   return (
     <>
-      {/* <div className="relative h-[200px] bg-gradient-to-r from-[#040978] via-[#384bc8] to-[#0912ee] overflow-hidden"> */}
-     
-      <section className="">
-        <div className="bg-[#f4f4f6] px-[20px] py-[30px]">
-          <div className="max-w-screen-xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-4">
-            {/* <div className="grid"></div> */}
+      <section className="bg-[#f4f4f6] px-[20px] py-[30px]">
+        <div className="max-w-screen-xl mx-auto">
+          <div className="grid lg:grid-cols-3 gap-4">
             <div className="grid">
-            <Card
-              title="Why limit yourself to an outreach tool when you can discover new business opportunities too?"
-              data={one}
-            />
+              <Card
+                title="Why limit yourself to an outreach tool when you can discover new business opportunities too?"
+                data={one}
+              />
             </div>
-            <div className="md:row-span-2">
-              <Card title="Make emailoutreach your highest of ROI" data={two} color='lightgreen' />
+            <div className="lg:row-span-2">
+              <Card
+                title="Make emailoutreach your highest of ROI"
+                data={two}
+                color="lightgreen"
+              />
             </div>
             <div className="grid">
               <Card
                 title="Write persuasive emails with tried and tested ChatGPT prompts"
                 data={three}
-                color='green'
+                color="green"
               />
             </div>
             <div className="grid">
               <Card
                 title="Live chat response in 2 minutes, not hours or days"
                 data={four}
-                color='darkgray'
+                color="darkgray"
               />
             </div>
             <div className="grid">
               <Card
                 title="Efficiently expand your outbound efforts on a budget"
                 data={five}
-                color='orange'
+                color="orange"
               />
             </div>
           </div>
-          </div>
         </div>
-        {/* <div className="bg-[#eff3f9] px-[20px] md:px-[104px] py-[40px] md:py-[80px] "> */}
-       
-          {/* <div className="section"></div> */}
       </section>
     </>
   );

@@ -30,9 +30,9 @@ export default function Directories() {
     "Z",
   ];
   return (
-    <section className="max-w-screen-xl mx-auto my-[40px] md:py-[60px] p-4 md:p-0">
+    <section className="max-w-screen-xl mx-auto my-[40px] md:py-[60px] p-4 md:mx-auto">
       <h3 className="font-semibold text-[#2e2567]">Browse Our Directories</h3>
-      <div className="flex gap-4 md:gap-[38px] mt-8 flex-wrap">
+      <div className="flex gap-4 md:gap-[37px] pt-8 flex-wrap">
         {alphabet?.map((i, idx) => (
           <p key={idx} className="font-medium text-[#2e2567]">
             {i}

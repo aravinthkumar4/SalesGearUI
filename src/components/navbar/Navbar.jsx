@@ -17,50 +17,74 @@ export default function Navbar() {
           className="flex space-x-3 md:space-x-0 rtl:space-x-reverse"
           onClick={() => setOpen((prev) => !prev)}
         >
-          <button
-            data-collapse-toggle="navbar-sticky"
-            type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-            aria-controls="navbar-sticky"
-            aria-expanded="false"
-          >
-            <span className="sr-only">Open main menu</span>
-            <svg
-              className="w-5 h-5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 17 14"
+          {!open ? (
+            <button
+              data-collapse-toggle="navbar-sticky"
+              type="button"
+              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+              aria-controls="navbar-sticky"
+              aria-expanded="false"
             >
-              <path
+              <span className="sr-only">Open main menu</span>
+              <svg
+                className="w-5 h-5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 17 14"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M1 1h15M1 7h15M1 13h15"
+                />
+              </svg>
+            </button>
+          ) : (
+            <button
+              data-collapse-toggle="navbar-sticky"
+              type="button"
+              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+              aria-controls="navbar-sticky"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                fill="none"
                 stroke="currentColor"
+                stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                stroke-width="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              />
-            </svg>
-          </button>
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          )}
         </div>
         <div
           className={`items-center justify-between ${
             open ? "block" : "hidden"
-          } w-full md:flex md:w-auto`}
+          } w-full lg:flex lg:w-auto`}
         >
-          <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium md:space-x-8 md:flex-row md:mt-0">
+          <ul className="flex flex-col p-4 lg:p-0 mt-4 font-medium space-y-8 lg:space-y-0 lg:space-x-8 lg:flex-row md:mt-0">
             <li className="under-line cursor-pointer">Platform</li>
             <li className="under-line cursor-pointer">Pricing</li>
             <li className="under-line cursor-pointer">About</li>
             <li className="under-line cursor-pointer">Resources</li>
-            <button className="p-[10px] btn-secondary block md:hidden">
+            <button className="p-[10px] btn-secondary block lg:hidden">
               Log In
             </button>
-            <button className="p-[10px] rounded-md btn-primary block md:hidden">
+            <button className="p-[10px] rounded-md btn-primary block lg:hidden">
               Get Started
             </button>
           </ul>
         </div>
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-8">
           <button className="p-[10px] btn-secondary">Log In</button>
           <button className="p-[10px] rounded-md btn-primary">
             Get Started
